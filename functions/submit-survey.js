@@ -24,7 +24,7 @@ exports.handler = async (event) => {
   
       // Append the fields you want to store
       // For example, if your AMP form includes <input name="feedback" />, pass that through:
-      if (data.feedback) postData.append('feedbackkk', data.experience);
+      if (data.feedback) postData.append('feedback', data.experience);
       // If you have other fields:
       //if (data.email) postData.append('email', data.email);
       // etc.
