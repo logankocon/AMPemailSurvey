@@ -1,7 +1,6 @@
 // functions/submit-survey.js
 // If you're on Node 16, you may need: const fetch = require('node-fetch');
 exports.handler = async (event) => {
-    console.log("Body:", event.body);
     if (event.httpMethod !== 'POST') {
       return {
         statusCode: 405,
@@ -12,7 +11,10 @@ exports.handler = async (event) => {
     try {
       // Parse the JSON body from your AMP form submission
       // (AMP can send either JSON or x-www-form-urlencoded, depending on your form setup)
-      const data = JSON.parse(event.body);
+      const params = new URLSearchParams(event.body);
+      const data = Object.fromEntries(params);
+      console.log(data);
+      //const data = JSON.parse(event.body);
   
       // 1. Build the POST body with form data so Netlify recognizes it as a form submission.
       //    We'll use URLSearchParams to mimic a standard HTML form submission.
