@@ -13,7 +13,6 @@ exports.handler = async (event) => {
       // (AMP can send either JSON or x-www-form-urlencoded, depending on your form setup)
       const params = new URLSearchParams(event.body);
       const data = Object.fromEntries(params);
-      console.log(data);
       //const data = JSON.parse(event.body);
   
       // 1. Build the POST body with form data so Netlify recognizes it as a form submission.
