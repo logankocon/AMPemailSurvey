@@ -1,6 +1,7 @@
 // functions/submit-survey.js
 // If you're on Node 16, you may need: const fetch = require('node-fetch');
 exports.handler = async (event) => {
+    console.log("Body:", event.body);
     if (event.httpMethod !== 'POST') {
       return {
         statusCode: 405,
