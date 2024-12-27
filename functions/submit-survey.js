@@ -52,15 +52,15 @@ exports.handler = async (event) => {
       return {
         statusCode: 200,
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'text/html',
           'Access-Control-Allow-Origin': '*', // For AMP in email
         },
         body: JSON.stringify({
           success: true,
-          message: 'Survey data stored in Netlify Forms'
+          message: 'Survey data stored in Netlify Forms',
+          receivedData: data,
         }),
       };
-      console.log('Headers:', event.headers)
     } catch (error) {
       console.error(error);
       return {
