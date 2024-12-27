@@ -44,6 +44,7 @@ exports.handler = async (event) => {
       // 3. Check if Netlify accepted the submission
       //    (Note: Even on success, Netlify may return a 301/302 redirect or an HTML page)
       if (!netlifyResponse.ok) {
+        console.log("testFAIL");
         throw new Error(`Netlify form submission failed: ${netlifyResponse.status}`);
       }
   
@@ -51,15 +52,15 @@ exports.handler = async (event) => {
       return {
         statusCode: 200,
         headers: {
-          'Content-Type': 'text/html',
+          'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*', // For AMP in email
         },
         body: JSON.stringify({
           success: true,
-          message: 'Survey data stored in Netlify Forms',
-          receivedData: data,
+          message: 'Survey data stored in Netlify Forms'
         }),
       };
+      console.log('Headers:', event.headers)
     } catch (error) {
       console.error(error);
       return {
