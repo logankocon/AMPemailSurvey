@@ -51,7 +51,7 @@ exports.handler = async (event) => {
       return {
         statusCode: 200,
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'text/html',
           'Access-Control-Allow-Origin': '*', // For AMP in email
         },
         body: JSON.stringify({
@@ -62,7 +62,6 @@ exports.handler = async (event) => {
       };
     } catch (error) {
       console.error(error);
-      console.log("test2");
       return {
         statusCode: 500,
         body: JSON.stringify({ error: error.message }),
