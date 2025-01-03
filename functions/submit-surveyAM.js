@@ -14,6 +14,7 @@ exports.handler = async (event, context) => {
     try {
       data = JSON.parse(event.body);
     } catch (err) {
+      console.log("fail");
       return {
         statusCode: 400,
         body: JSON.stringify({ error: 'Invalid JSON' }),
