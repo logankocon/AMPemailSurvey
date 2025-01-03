@@ -9,7 +9,10 @@ exports.handler = async (event, context) => {
       };
     }
   
-    // 2. Parse the request body
+
+        // Log or process the data
+    Console.WriteLine(requestBody["action"]?.ToString());
+    Console.WriteLine(requestBody["comments"]?.ToString());
     let data;
     try {
       data = JSON.parse(event.body);
