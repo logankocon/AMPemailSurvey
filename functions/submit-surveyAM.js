@@ -1,44 +1,43 @@
-
-
+// functions/submit.js
 exports.handler = async (event, context) => {
-    // 1. Check the request method
-    if (event.httpMethod !== 'POST') {
-      return {
-        statusCode: 405,
-        body: JSON.stringify({ error: 'Method Not Allowed' }),
-      };
-    }
-  
+  // 1. Only allow POST requests
+  if (event.httpMethod !== "POST") {
+    return {
+      statusCode: 405, // Method Not Allowed
+      body: JSON.stringify({ message: "Only POST requests are allowed." }),
+    };
+  }
 
-        // Log or process the data
-    Console.WriteLine(requestBody["action"]?.ToString());
-    Console.WriteLine(requestBody["comments"]?.ToString());
-    let data;
-    try {
-      data = JSON.parse(event.body);
-    } catch (err) {
-      console.log("fail");
+  try {
+    // 2. Parse the incoming JSON
+    const body = JSON.parse(event.body);
+    const Options = body.Options;  // e.g., "good", "meh", or "poor"
+
+    // 3. Validate the choice
+    if (!["Greate", "Average", "Poor"].includes(Options)) {
       return {
         statusCode: 400,
-        body: JSON.stringify({ error: 'Invalid JSON' }),
+        body: JSON.stringify({ message: "Invalid poll choice." }),
       };
     }
-  
-    // 3. Handle the action - e.g., store data, trigger workflow, etc.
-    // For example, suppose the card body had: { "choice": "approved" }
-    console.log('Received data from Outlook Actionable Message:', data);
-  
-    // 4. Return a response
-    // Typically, you’d just confirm success with a 200 OK.
-    // If you want to do a "card refresh" or updated content,
-    // you’d send back another JSON body representing the new card state.
-    // But for basic scenarios, a simple success message is enough.
+
+    // 4. Process the choice (log, store in DB, etc.)
+    console.log(`User selected: ${Options}`);
+
+    // 5. Return a success message to Outlook
     return {
       statusCode: 200,
       body: JSON.stringify({
-        message: 'Action received successfully!',
-        receivedData: data,
+        status: "success",
+        message: `Thank you for voting: ${Options}`,
       }),
     };
-  };
-  
+  } catch (error) {
+    // Handle JSON parse errors or other exceptions
+    console.error(error);
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ message: "Invalid request body" }),
+    };
+  }
+};
