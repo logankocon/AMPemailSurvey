@@ -15,7 +15,7 @@ exports.handler = async (event, context) => {
     const Option = body.Option;  // e.g., "good", "meh", or "poor"
 
     // 3. Validate the choice
-    if (!["Greate", "Average", "Poor"].includes(Option)) {
+    if (!["Great", "Average", "Poor"].includes(Option)) {
       return {
         statusCode: 400,
         body: JSON.stringify({ message: "Invalid poll choice." }),
