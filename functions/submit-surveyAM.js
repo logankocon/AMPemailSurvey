@@ -1,6 +1,7 @@
 // functions/submit.js
 exports.handler = async (event, context) => {
   // 1. Only allow POST requests
+  console.log("event.body:", event.body);
   if (event.httpMethod !== "POST") {
     return {
       statusCode: 405, // Method Not Allowed
