@@ -12,10 +12,10 @@ exports.handler = async (event, context) => {
   try {
     // 2. Parse the incoming JSON
     const body = JSON.parse(event.body);
-    const Options = body.Options;  // e.g., "good", "meh", or "poor"
+    const Option = body.Option;  // e.g., "good", "meh", or "poor"
 
     // 3. Validate the choice
-    if (!["Greate", "Average", "Poor"].includes(Options)) {
+    if (!["Greate", "Average", "Poor"].includes(Option)) {
       return {
         statusCode: 400,
         body: JSON.stringify({ message: "Invalid poll choice." }),
@@ -23,14 +23,14 @@ exports.handler = async (event, context) => {
     }
 
     // 4. Process the choice (log, store in DB, etc.)
-    console.log(`User selected: ${Options}`);
+    console.log(`User selected: ${Option}`);
 
     // 5. Return a success message to Outlook
     return {
       statusCode: 200,
       body: JSON.stringify({
         status: "success",
-        message: `Thank you for voting: ${Options}`,
+        message: `Thank you for voting: ${Option}`,
       }),
     };
   } catch (error) {
